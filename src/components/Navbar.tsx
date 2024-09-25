@@ -9,6 +9,7 @@ import { Button, buttonVariants } from "./ui/button";
 import { ThemeSwitcherButton } from "./ThemeSwitcherButton";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
+import { ClerkLoaded, SignedOut, UserButton } from "@clerk/nextjs";
 
 function Navbar() {
 	return (
@@ -54,11 +55,19 @@ function MobileNavbar() {
 									}
 								/>
 							))}
+							<SignedOut>
+								<NavbarItem
+									key="Sign-in"
+									link="/sign-in"
+									label="Sign In"
+								/>
+							</SignedOut>
 						</section>
 					</SheetContent>
 				</Sheet>
 				<section className="flex items-center gap-2">
 					<ThemeSwitcherButton />
+					<UserButton afterSwitchSessionUrl="/sign-in" />
 				</section>
 			</nav>
 		</section>
@@ -80,10 +89,21 @@ function DesktopNavbar() {
 									label={navLink.label}
 								/>
 							))}
+
+							<ClerkLoaded>
+								<SignedOut>
+									<NavbarItem
+										key="Sign-in"
+										link="/sign-in"
+										label="Sign In"
+									/>
+								</SignedOut>
+							</ClerkLoaded>
 						</section>
 					</section>
 					<section className="flex items-center gap-6 ml-12">
 						<ThemeSwitcherButton />
+						<UserButton afterSwitchSessionUrl="/sign-in" />
 					</section>
 				</nav>
 			</section>
